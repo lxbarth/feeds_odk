@@ -64,9 +64,10 @@ function feeds_odk_feeds_plugins() {
  */
 function feeds_odk_submit() {
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    feeds_odk_log(file_get_contents('php://input'));
     feeds_odk_log($_FILES);
-    feeds_odk_log($HTTP_RAW_POST_DATA);
+    $handle = fopen($_FILES['xml_submission_file']['tmp_name'], 'r');
+    $contents = fread($handle, filesize($_FILES['xml_submission_file']['tmp_name']));
+    feeds_odk_log($contents);
   }
   header('HTTP/1.1 201 "Created"', null, 201);
   header('Content-Location: '. url('', array('absolute' => TRUE)));
