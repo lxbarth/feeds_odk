@@ -63,7 +63,9 @@ function feeds_odk_feeds_plugins() {
  * Page callback.
  */
 function feeds_odk_submit() {
-  feeds_odk_log($_POST);
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    feeds_odk_log(file_get_contents('php://input'));
+  }
   header('HTTP/1.1 201 "Created"', null, 201);
   header('Content-Location: '. url('', array('absolute' => TRUE)));
   exit();
