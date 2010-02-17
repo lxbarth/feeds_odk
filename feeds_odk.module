@@ -7,16 +7,18 @@ function feeds_odk_menu() {
   $items = array();
   $items['submit'] = array(
     'page callback' => 'feeds_odk_submit',
-    'access arguments' => array('odk submit'),
+    'access callback' => 'user_access',
+    'access arguments' => array('odk submit forms'),
     'type' => MENU_CALLBACK,
   );
+  return $items;
 }
 
 /**
  * Implementation of hook_perm().
  */
 function feeds_odk_perm() {
-  return array('odk submit');
+  return array('odk submit forms');
 }
 
 /**
@@ -24,6 +26,7 @@ function feeds_odk_perm() {
  */
 function feeds_odk_submit() {
   feeds_odk_log($_POST);
+  return '';
 }
 
 /**
