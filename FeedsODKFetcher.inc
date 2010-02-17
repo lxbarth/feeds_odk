@@ -42,7 +42,6 @@ class FeedsODKFetcher extends FeedsFetcher {
    * @todo: more input validation.
    */
   public function fetch(FeedsSource $source) {
-    return new FeedsODKBatch($_FILES);
     if (isset($_FILES['xml_submission_file']['tmp_name'])) {
       return new FeedsODKBatch($_FILES);
     }

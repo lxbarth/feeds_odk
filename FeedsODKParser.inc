@@ -17,15 +17,6 @@ class FeedsODKParser extends FeedsParser {
    * Parse the submitted XML.
    */
   protected function parseXML($raw) {
-    $raw = <<<EOF
-<?xml version='1.0' ?>
-    <geotagger id="geo_tagger">
-      <DeviceId>A0000015B6FF70</DeviceId>
-      <Image>1266373610389.jpg</Image>
-      <Location>38.91677205 -77.03591701666667 45.6 12.0</Location>
-      <Description>DS office</Description>
-    </geotagger>
-EOF;
     $xml = @ new SimpleXMLElement($raw);
     list($lat, $lon, $alt, $acc) = explode(' ', (string) @current($xml->xpath('/geotagger/Location')));
     return array(
