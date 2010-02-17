@@ -22,6 +22,44 @@ function feeds_odk_perm() {
 }
 
 /**
+ * Implementation of hook_ctools_plugin_api().
+ */
+function feeds_odk_ctools_plugin_api($owner, $api) {
+  if ($owner == 'feeds' && $api == 'plugins') {
+    return array('version' => 1);
+  }
+}
+
+/**
+ * Implementation of hook_feeds_plugins().
+ */
+function feeds_odk_feeds_plugins() {
+  $info = array();
+  $info['FeedsODKFetcher'] = array(
+    'name' => 'ODK fetcher',
+    'description' => 'Receive an ODK submission.',
+    'handler' => array(
+      'parent' => 'FeedsFetcher',
+      'class' => 'FeedsODKFetcher',
+      'file' => 'FeedsODKFetcher.inc',
+      'path' => drupal_get_path('module', 'feeds_odk'),
+    ),
+  );
+  $info['FeedsODKParser'] = array(
+    'name' => 'ODK parser',
+    'description' => 'Parse an ODK submission.',
+    'handler' => array(
+      'parent' => 'FeedsParser',
+      'class' => 'FeedsODKParser',
+      'file' => 'FeedsODKParser.inc',
+      'path' => drupal_get_path('module', 'feeds_odk'),
+    ),
+  );
+  return $info;
+}
+
+
+/**
  * Page callback.
  */
 function feeds_odk_submit() {
