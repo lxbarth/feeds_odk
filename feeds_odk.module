@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * Implementation of hook_odk_menu().
+ */
+function feeds_odk_menu() {
+  $items = array();
+  $items['submit'] = array(
+    'page callback' => 'feeds_odk_submit',
+    'access arguments' => array('odk submit'),
+    'type' => MENU_CALLBACK,
+  );
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function feeds_odk_perm() {
+  return array('odk submit');
+}
+
+/**
+ * Page callback.
+ */
+function feeds_odk_submit() {
+  feeds_odk_log($_POST);
+}
+
+/**
+ * Debug helper.
+ */
+function feeds_odk_log($msg) {
+  if (!is_string($msg)) {
+    $msg = var_export($msg, true);
+  }
+  $handle = fopen('/tmp/odk.log', 'a');
+  fwrite($handle, date('c') ."\t$msg\n");
+  fclose($handle);
+}

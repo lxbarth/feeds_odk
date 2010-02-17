@@ -1,0 +1,6 @@
+name = Feeds ODK
+description = Process ODK forms with Feeds.
+package = Feeds
+dependencies[] = feeds
+core = 6.x
+php = 5.2
