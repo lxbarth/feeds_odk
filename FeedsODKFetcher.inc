@@ -11,7 +11,7 @@ class FeedsODKBatch extends FeedsImportBatch {
    */
   public function __construct($file_submission) {
     $this->file_submission = $file_submission;
-    feeds_odk_log($this->file_submission);
+    parent::__construct();
   }
 
   /**
@@ -42,8 +42,9 @@ class FeedsODKFetcher extends FeedsFetcher {
    * @todo: more input validation.
    */
   public function fetch(FeedsSource $source) {
+    return new FeedsODKBatch($_FILES);
     if (isset($_FILES['xml_submission_file']['tmp_name'])) {
-      return FeedsODKBatch($_FILES);
+      return new FeedsODKBatch($_FILES);
     }
     throw new Exception(t('Invalid submission'));
   }

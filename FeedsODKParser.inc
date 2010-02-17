@@ -27,15 +27,15 @@ class FeedsODKParser extends FeedsParser {
     </geotagger>
 EOF;
     $xml = @ new SimpleXMLElement($raw);
-    list($lat, $lon, $alt, $acc) = explode(' ', $xml->xpath('/geotagger/Location'));
+    list($lat, $lon, $alt, $acc) = explode(' ', (string) @current($xml->xpath('/geotagger/Location')));
     return array(
-      'device_id' => $xml->xpath('/geotagger/DeviceId'),
-      'image' => $xml->xpath('/geotagger/Image'),
+      'device_id' => (string) @current($xml->xpath('/geotagger/DeviceId')),
+      'image' => (string) @current($xml->xpath('/geotagger/Image')),
       'latitude' => $lat,
       'longitude' => $lon,
       'altitude' => $alt,
       'accuracy' => $acc,
-      'description' => $xml->xpath('/geotagger/Description'),
+      'description' => (string) @current($xml->xpath('/geotagger/Description')),
       );
   }
 }
