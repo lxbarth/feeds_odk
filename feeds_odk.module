@@ -5,7 +5,7 @@
  */
 function feeds_odk_menu() {
   $items = array();
-  $items['submit'] = array(
+  $items['submission'] = array(
     'page callback' => 'feeds_odk_submit',
     'access callback' => 'user_access',
     'access arguments' => array('odk submit forms'),
@@ -64,7 +64,9 @@ function feeds_odk_feeds_plugins() {
  */
 function feeds_odk_submit() {
   feeds_odk_log($_POST);
-  return '';
+  header('HTTP/1.1 201 "Created"', null, 201);
+  header('Content-Location: '. url('', array('absolute' => TRUE)));
+  exit();
 }
 
 /**
