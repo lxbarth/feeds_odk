@@ -5,8 +5,9 @@
  */
 function feeds_odk_menu() {
   $items = array();
-  $items['submission'] = array(
+  $items['feeds/%/submission'] = array(
     'page callback' => 'feeds_odk_submit',
+    'page arguments' => array(1),
     'access callback' => 'user_access',
     'access arguments' => array('odk submit forms'),
     'type' => MENU_CALLBACK,
@@ -62,16 +63,16 @@ function feeds_odk_feeds_plugins() {
 /**
  * Page callback.
  */
-function feeds_odk_submit() {
+function feeds_odk_submit($importer_id) {
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    feeds_odk_log($_FILES);
-    $handle = fopen($_FILES['xml_submission_file']['tmp_name'], 'r');
-    $contents = fread($handle, filesize($_FILES['xml_submission_file']['tmp_name']));
-    feeds_odk_log($contents);
+    if (feeds_importer($importer_id)->fetcher instanceOf FeedsODKFetcher) {
+      feeds_source($importer_id)->import();
+      header('HTTP/1.1 201 "Created"', null, 201);
+      header('Content-Location: '. url('', array('absolute' => TRUE)));
+      exit();
+    }
   }
-  header('HTTP/1.1 201 "Created"', null, 201);
-  header('Content-Location: '. url('', array('absolute' => TRUE)));
-  exit();
+  drupal_access_denied();
 }
 
 /**
