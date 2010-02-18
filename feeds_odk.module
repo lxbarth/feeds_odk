@@ -40,7 +40,7 @@ function feeds_odk_feeds_plugins() {
     'name' => 'ODK fetcher',
     'description' => 'Receive an ODK submission.',
     'handler' => array(
-      'parent' => 'FeedsFetcher',
+      'parent' => 'FeedsHTTPFetcher',
       'class' => 'FeedsODKFetcher',
       'file' => 'FeedsODKFetcher.inc',
       'path' => drupal_get_path('module', 'feeds_odk'),

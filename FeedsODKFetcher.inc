@@ -3,7 +3,7 @@
 /**
  * Batch object containing the submitted data.
  */
-class FeedsODKBatch extends FeedsImportBatch {
+class FeedsODKBatch extends FeedsHTTPBatch {
   protected $file_submission;
 
   /**
